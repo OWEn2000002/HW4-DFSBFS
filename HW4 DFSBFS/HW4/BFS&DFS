@@ -1,0 +1,69 @@
+Data Structures Assignment 4: BFS and DFS
+Now that you've completed the algorithms for BFS and DFs, take these algorithms and write them up in python. Please include your algorithms, and any necesany explanations.  demo your code;
+
+1、[Answer] ：
+Here's a Python implementation demonstrating Breadth-First Search (BFS) and Depth-First Search (DFS) algorithms using a simple graph representation:
+
+1） [code]:
+
+from collections import defaultdict, deque
+
+class Graph:
+    def __init__(self):
+        self.graph = defaultdict(list)
+
+    def add_edge(self, u, v):               # Add an edge between vertices u and v
+        self.graph[u].append(v)
+
+    def bfs(self, start):
+        visited = set()
+        queue = deque([start])
+        visited.add(start)
+
+        print("Breadth-First Search:")
+        while queue:
+            node = queue.popleft()
+            print(node, end=' ')         # Process the current node
+            for neighbor in self.graph[node]:
+                if neighbor not in visited:
+                    queue.append(neighbor)
+                    visited.add(neighbor)
+
+    def dfs_util(self, node, visited):
+        visited.add(node)
+        print(node, end=' ')  # Process the current node
+        for neighbor in self.graph[node]:
+            if neighbor not in visited:
+                self.dfs_util(neighbor, visited)
+
+    def dfs(self, start):
+        visited = set()
+        
+        print("\nDepth-First Search:")
+        self.dfs_util(start, visited)
+
+# Test demo
+# Create a graph and add edges 
+g = Graph()
+g.add_edge(0, 1)
+g.add_edge(0, 2)
+g.add_edge(1, 2)
+g.add_edge(2, 0)
+g.add_edge(2, 3)
+g.add_edge(3, 3)
+
+# Perform BFS from node 2
+g.bfs(2)
+
+# Perform DFS from node 2
+g.dfs(2)
+
+
+
+2）[explanations]:
+In the above code:
+The Graph class represents a graph using an adjacency list implemented with a defaultdict.
+The add_edge method adds an edge between two vertices.
+The bfs method performs a Breadth-First Search traversal, starting from the given node and prints the nodes in BFS order.
+The dfs_util method is a utility function for Depth-First Search that recursively visits and processes each node.
+The dfs method performs a Depth-First Search traversal, starting from the given node and prints the nodes in DFS order.
